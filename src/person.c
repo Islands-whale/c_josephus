@@ -5,19 +5,12 @@
 
 #define SUCCESS 0
 
-// struct Person{
-//     char *name;
-//     int *age;
-// };
-
 void person_new(Person *this){
     this->name = (char*)malloc(10 * sizeof(char));
-    this->age = (char*)malloc(10 * sizeof(char));
 }
 
 void person_destroy(Person *this){
     free(this->name);
-    free(this->age);
 }
 
 void person_create(Person *this, char *target){
@@ -25,12 +18,14 @@ void person_create(Person *this, char *target){
     info = strtok(target, ",");
     strcpy(this->name, info);
     info = strtok(NULL, ",");
-    strcpy(this->age, info);
+    this->age = atoi(info);
 }
 
 void person2str(Person *this, char *target){
     strcpy(target, "name:");
     strcat(target, this->name);
     strcat(target, "    age:");
-    strcat(target, this->age);
+    char str[3];
+    itoa(this->age, str, 10);
+    strcat(target, str);
 }

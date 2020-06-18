@@ -1,11 +1,9 @@
 #ifndef __PERSON_H__
 #define __PERSON_H__
 
-// typedef struct Person Person;
-
 typedef struct{
     char *name;
-    char *age;
+    unsigned age;
 }Person;
 
 void person_new(Person*);

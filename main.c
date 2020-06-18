@@ -36,7 +36,7 @@ int main(){
     printf("\nThe sequence after sorting is:\n");
     for (int i = 0; i < count; i++){
         printf("Eliminate:%d  ", i + 1);
-        printf("%s", temp[i]);
+        printf("%s\n", temp[i]);
     } 
 
     for (int i = 0; i < count; i++){
