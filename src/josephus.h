@@ -6,8 +6,6 @@
 
 ARRAY_DEF(array_uint, char*)
 
-// typedef struct Josephus Josephus;
-
 typedef struct{
     unsigned current_id;
     unsigned step;

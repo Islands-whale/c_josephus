@@ -1,11 +1,5 @@
 #include "josephus.h"
 
-// struct Josephus{
-//     unsigned current_id;
-//     unsigned step;
-//     list_uint_t people;
-// };
-
 void josephus_new(Josephus *this){
     this->info = (char**)malloc(this->count * sizeof(char*));
     for (int i = 0; i < this->count; i++){
