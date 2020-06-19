@@ -9,41 +9,31 @@ int main(){
     char *path = "data/people.txt";
     reader_get_line_count(path, &count);
 
+    Reader *reader = reader_new();
+    reader_create(reader, path, count);
+
+    Person **person = person_new(count);
+    reader_get_people_data(reader, person);
     
-    Reader reader;
-    reader_new(&reader);
-    reader_create(&reader, path, count);
-
-    Person person[count];
-    for (int i = 0; i < count; i++){
-        person_new(&person[i]);
-    }
+    char **info;
+    Josephus *ring = josephus_new(count, &info);
+    josephus_create(ring, 1, 2, count);
     
-    reader_get_people_data(&reader, person);
-
-    Josephus ring;
-    array_uint_init(ring.people);
-    josephus_create(&ring, 1, 2, count);
-
-    josephus_new(&ring);
-
     for (int i = 0; i < count; ++i){
-        person2str(&person[i], ring.info[i]);
-        josephus_add(&ring, ring.info[i]);  
+        person2str(person[i], info[i]);
+        josephus_add(ring, info[i]);
     }
 
-    char **temp = josephus_sort(&ring);
+    char **temp = josephus_sort(ring);
     printf("\nThe sequence after sorting is:\n");
     for (int i = 0; i < count; i++){
         printf("Eliminate:%d  ", i + 1);
         printf("%s\n", temp[i]);
     } 
 
-    for (int i = 0; i < count; i++){
-        person_destroy(&person[i]);
-    }
-    josephus_destroy(&ring);
-    reader_destroy(&reader);
+    person_destroy(person, count);
+    josephus_destroy(ring);
+    reader_destroy(reader);
     free(temp);
 
     return 0;

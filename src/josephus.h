@@ -6,15 +6,9 @@
 
 ARRAY_DEF(array_uint, char*)
 
-typedef struct{
-    unsigned current_id;
-    unsigned step;
-    char **info;
-    unsigned count;
-    array_uint_t people;
-}Josephus;
+typedef struct Josephus Josephus;  // TODO 1首字母 2颜色
 
-void josephus_new(Josephus*);
+Josephus* josephus_new(unsigned, char***);
 void josephus_destroy(Josephus*);
 void josephus_create(Josephus*, unsigned, unsigned, unsigned);
 void josephus_add(Josephus*, char*);

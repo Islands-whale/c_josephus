@@ -3,14 +3,26 @@
 #include <string.h>
 #include "person.h"
 
-#define SUCCESS 0
+struct Person{
+    char *name;
+    unsigned age;
+};
 
-void person_new(Person *this){
-    this->name = (char*)malloc(10 * sizeof(char));
+Person** person_new(unsigned count){
+    Person **person = (Person**)malloc(count * sizeof(Person*));
+    for (int i = 0; i < count; i++){
+        person[i] = (Person*)malloc(sizeof(Person));
+        person[i]->name = (char*)malloc(10 * sizeof(char));
+    }
+    return person;
 }
 
-void person_destroy(Person *this){
-    free(this->name);
+void person_destroy(Person **this, unsigned count){    // TODO
+    for (int i = 0; i < count; i++){
+        free(this[i]->name);
+        free(this[i]);
+    }
+    free(this);
 }
 
 void person_create(Person *this, char *target){

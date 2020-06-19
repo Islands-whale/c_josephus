@@ -1,10 +1,21 @@
 #include "josephus.h"
 
-void josephus_new(Josephus *this){
-    this->info = (char**)malloc(this->count * sizeof(char*));
-    for (int i = 0; i < this->count; i++){
-        this->info[i] = (char*)malloc(20 * sizeof(char));
+struct Josephus{
+    unsigned current_id;
+    unsigned step;
+    char **info;        // TODO
+    unsigned count;
+    array_uint_t people;
+};
+
+Josephus* josephus_new(unsigned count, char ***info){
+    Josephus *ring = (Josephus*)malloc(sizeof(Josephus));
+    ring->info = (char**)malloc(count * sizeof(char*));
+    for (int i = 0; i < count; i++){
+        ring->info[i] = (char*)malloc(20 * sizeof(char));
     }
+    *info = ring->info;
+    return ring;
 }
 
 void josephus_destroy(Josephus *this){
@@ -12,9 +23,11 @@ void josephus_destroy(Josephus *this){
         free(this->info[i]);
     }
     free(this->info);
+    free(this);
 }
 
 void josephus_create(Josephus *this, unsigned start, unsigned step, unsigned count){
+    array_uint_init(this->people);
     this->current_id = start -1;
     this->step = step;
     this->count = count;

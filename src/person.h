@@ -1,13 +1,10 @@
 #ifndef __PERSON_H__
 #define __PERSON_H__
 
-typedef struct{
-    char *name;
-    unsigned age;
-}Person;
+typedef struct Person Person;
 
-void person_new(Person*);
-void person_destroy(Person*);
+Person** person_new(unsigned);
+void person_destroy(Person**, unsigned);  
 void person_create(Person*, char*);
 void person2str(Person*, char *);
 
