@@ -5,10 +5,10 @@
 
 typedef struct Reader Reader;
 
-void reader_get_line_count(const char*, unsigned*);
+int reader_get_line_count(const char*, unsigned*);
 Reader* reader_new();
-void reader_destroy(Reader*);
-void reader_create(Reader*, char*, unsigned);
-void reader_get_people_data(Reader*, Person**);
+int reader_destroy(Reader*);
+int reader_create(Reader*, char*, unsigned);
+int reader_get_people_data(Reader*, Person**);
 
 #endif

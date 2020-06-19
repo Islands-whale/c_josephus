@@ -7,18 +7,32 @@
 int main(){
     unsigned count = 0;
     char *path = "data/people.txt";
-    reader_get_line_count(path, &count);
-
-    Reader *reader = reader_new();
-    reader_create(reader, path, count);
+    if(reader_get_line_count(path, &count) != SUCCESS){
+        printf("Failed to open the file\n");
+        return 0;
+    }
 
     Person **person = person_new(count);
-    reader_get_people_data(reader, person);
-    
     char **info;
     Josephus *ring = josephus_new(count, &info);
+    Reader *reader = reader_new();
+
+    if (person == NULL || ring == NULL || reader == NULL){
+        printf("Memory allocation error\n");
+        return 0;
+    }
+
+    if(reader_create(reader, path, count) != SUCCESS){
+        printf("Create reader error\n");
+        return 0;
+    }
+
+    if(reader_get_people_data(reader, person) != SUCCESS){
+        printf("Get people data error\n");
+        return 0;
+    }
+
     josephus_create(ring, 1, 2, count);
-    
     for (int i = 0; i < count; ++i){
         person2str(person[i], info[i]);
         josephus_add(ring, info[i]);
