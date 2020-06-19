@@ -24,17 +24,19 @@ int main(){
         josephus_add(ring, info[i]);
     }
 
-    char **temp = josephus_sort(ring);
+    char **result = (char**)malloc(count * sizeof(char*));
+    josephus_sort(ring, &result);
+
     printf("\nThe sequence after sorting is:\n");
     for (int i = 0; i < count; i++){
         printf("Eliminate:%d  ", i + 1);
-        printf("%s\n", temp[i]);
+        printf("%s\n", result[i]);
     } 
 
     person_destroy(person, count);
     josephus_destroy(ring);
     reader_destroy(reader);
-    free(temp);
+    free(result);
 
     return 0;
 }

@@ -14,6 +14,6 @@ void josephus_create(Josephus*, unsigned, unsigned, unsigned);
 void josephus_add(Josephus*, char*);
 void josephus_pop(Josephus*, unsigned, char**);
 int josephus_len(Josephus*);
-char** josephus_sort(Josephus*);
+void josephus_sort(Josephus*, char***);
 
 #endif

@@ -46,12 +46,9 @@ int josephus_len(Josephus *this){
     return length;
 }
 
-char** josephus_sort(Josephus *this){
-    int up_bound = josephus_len(this);
-    char **result = (char**)malloc(up_bound * sizeof(char*));
-    for (int i = 0; i < up_bound; ++i){
+void josephus_sort(Josephus *this, char ***target){
+    for (int i = 0; i < this->count; ++i){
         this->current_id = (this->current_id + this->step - 1) % josephus_len(this);
-        josephus_pop(this, this->current_id, &result[i]);
+        josephus_pop(this, this->current_id, &(*target)[i]);
     }
-    return result;
 }
