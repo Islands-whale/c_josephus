@@ -3,12 +3,12 @@
 
 #include "person.h"
 
-typedef struct Reader Reader;
+typedef struct _Reader *Reader;
 
 int reader_get_line_count(const char*, unsigned*);
-Reader* reader_new();
-int reader_destroy(Reader*);
-int reader_create(Reader*, char*, unsigned);
-int reader_get_people_data(Reader*, Person**);
+Reader reader_new();
+void reader_destroy(Reader);
+void reader_init(Reader, const char*, unsigned);
+int reader_get_people_data(Reader, Person*);
 
 #endif

@@ -3,16 +3,16 @@
 #include <string.h>
 #include "person.h"
 
-struct Person{
+struct _Person{
     char *name;
     unsigned age;
 };
 
-Person** person_new(unsigned count){
-    Person **person = (Person**)malloc(count * sizeof(Person*));
+Person* person_new(unsigned count){
+    Person *person = (Person*)malloc(count * sizeof(Person));
 
     for (int i = 0; i < count; i++){
-        person[i] = (Person*)malloc(sizeof(Person));
+        person[i] = (Person)malloc(sizeof(struct _Person));
         if(person[i] == NULL)
             return NULL;
 
@@ -24,28 +24,31 @@ Person** person_new(unsigned count){
     return person;
 }
 
-int person_destroy(Person **this, unsigned count){    // TODO
+void person_destroy(Person *this, unsigned count){    // TODO
     for (int i = 0; i < count; i++){
         free(this[i]->name);
         free(this[i]);
     }
     free(this);
-
-    return SUCCESS;
 }
 
-int person_create(Person *this, char *target){
-    char *info;                                       //TODO
-    info = strtok(target, ",");
+void person_init(Person this, char *target){
+    // char *info;                                       //TODO
+    // info = strtok(target, ",");
+    // strcpy(this->name, info);
+
+    // info = strtok(NULL, ",");
+    // this->age = atoi(info);
+
+    char info[10];                                       //TODO
+    sprintf(info, "%s", strtok(target, ","));
     strcpy(this->name, info);
 
-    info = strtok(NULL, ",");
+    sprintf(info, "%s", strtok(NULL, ","));
     this->age = atoi(info);
-
-    return SUCCESS;
 }
 
-int person2str(Person *this, char *target){
+void person2str(Person this, char *target){
     strcpy(target, "name:");
     strcat(target, this->name);
 
@@ -53,6 +56,4 @@ int person2str(Person *this, char *target){
     char str[3];
     itoa(this->age, str, 10);
     strcat(target, str);
-    
-    return SUCCESS;
 }

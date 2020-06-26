@@ -4,16 +4,17 @@
 #include "m-array.h"
 #include "person.h"
 
-ARRAY_DEF(array_uint, char*)
+ARRAY_DEF(array_person, Person, M_POD_OPLIST)
 
-typedef struct Josephus Josephus;  // TODO 1首字母 2颜色
+typedef struct _Josephus *Josephus;  // TODO 颜色
 
-Josephus* josephus_new(unsigned, char***);
-int josephus_destroy(Josephus*);
-int josephus_create(Josephus*, unsigned, unsigned, unsigned);
-int josephus_add(Josephus*, char*);
-int josephus_pop(Josephus*, unsigned, char**);
-int josephus_len(Josephus*);
-int josephus_sort(Josephus*, char***);
+Josephus josephus_new();
+void josephus_destroy(Josephus);
+void josephus_init(Josephus, unsigned, unsigned);
+void josephus_del(Josephus);
+void josephus_add(Josephus, Person);
+void josephus_pop(Josephus, unsigned, Person*);
+int josephus_len(Josephus);
+void josephus_sort(Josephus, Person**);
 
 #endif

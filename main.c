@@ -6,45 +6,41 @@
 
 int main(){
     unsigned count = 0;
-    char *path = "data/people.txt";
+    const char *path = "data/people.txt";
     if(reader_get_line_count(path, &count) != SUCCESS){
         printf("Failed to open the file\n");
         return 0;
     }
 
-    Person **person = person_new(count);
-    char **info;
-    Josephus *ring = josephus_new(count, &info);
-    Reader *reader = reader_new();
+    Person *person = person_new(count);
+    Josephus ring = josephus_new();
+    Reader reader = reader_new();
 
-    if (person == NULL || ring == NULL || reader == NULL){
-        printf("Memory allocation error\n");
-        return 0;
-    }
+    // if (person == NULL || ring == NULL || reader == NULL){
+    //     printf("Memory allocation error\n");
+    //     return 0;
+    // }
 
-    if(reader_create(reader, path, count) != SUCCESS){
-        printf("Create reader error\n");
-        return 0;
-    }
-
+    reader_init(reader, path, count);
     if(reader_get_people_data(reader, person) != SUCCESS){
         printf("Get people data error\n");
         return 0;
     }
 
-    josephus_create(ring, 1, 2, count);
+    josephus_init(ring, 1, 2);
     for (int i = 0; i < count; ++i){
-        person2str(person[i], info[i]);
-        josephus_add(ring, info[i]);
+        josephus_add(ring, person[i]);
     }
 
-    char **result = (char**)malloc(count * sizeof(char*));
+    Person *result = (Person*)malloc(count * sizeof(Person));
     josephus_sort(ring, &result);
 
+    char str[20];
     printf("\nThe sequence after sorting is:\n");
     for (int i = 0; i < count; i++){
         printf("Eliminate:%d  ", i + 1);
-        printf("%s\n", result[i]);
+        person2str(result[i], str);
+        printf("%s\n", str);
     } 
 
     person_destroy(person, count);

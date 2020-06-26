@@ -4,11 +4,11 @@
 #define SUCCESS 0
 #define FAILURE -1
 
-typedef struct Person Person;
+typedef struct _Person *Person;
 
-Person** person_new(unsigned);
-int person_destroy(Person**, unsigned);  
-int person_create(Person*, char*);
-int person2str(Person*, char *);
+Person* person_new(unsigned);
+void person_destroy(Person*, unsigned);  
+void person_init(Person, char*);
+void person2str(Person, char*);
 
 #endif

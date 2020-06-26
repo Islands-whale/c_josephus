@@ -3,7 +3,7 @@
 #include <string.h>
 #include "file_reader.h"
 
-struct Reader{
+struct _Reader{
     char *path;
     unsigned count;
 };
@@ -25,8 +25,8 @@ int reader_get_line_count(const char *path, unsigned *count){
     return SUCCESS;
 }
 
-Reader* reader_new(){
-    Reader *reader = (Reader*)malloc(sizeof(Reader)); 
+Reader reader_new(){
+    Reader reader = (Reader)malloc(sizeof(struct _Reader)); 
 
     reader->path = (char*)malloc(20 * sizeof(char));
     if (reader->path == NULL)
@@ -35,21 +35,17 @@ Reader* reader_new(){
     return reader;
 }
 
-int reader_destroy(Reader *this){
+void reader_destroy(Reader this){
     free(this->path);
     free(this);
-
-    return SUCCESS;
 }
 
-int reader_create(Reader *this, char *path, unsigned count){
+void reader_init(Reader this, const char *path, unsigned count){
     strcpy(this->path, path);
     this->count = count;
-
-    return SUCCESS;
 }
 
-int reader_get_people_data(Reader *this, Person **target){
+int reader_get_people_data(Reader this, Person *target){
     FILE *fp;
     char buff[255];
     
@@ -58,10 +54,9 @@ int reader_get_people_data(Reader *this, Person **target){
 
     for(int i = 0; i < this->count; ++i){
         fgets(buff, 256, fp);
-        if(person_create(target[i], buff) != SUCCESS)
-            return FAILURE;
+        person_init(target[i], buff);
     }
 
-    fclose(fp);
+    fclose(fp); 
     return SUCCESS;
 }
