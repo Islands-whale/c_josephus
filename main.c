@@ -32,7 +32,10 @@ int main(){
         josephus_add(ring, person[i]);
     }
 
-    Person *result = (Person*)malloc(count * sizeof(Person));
+    printf("\nThe sequence before sorting is:\n");
+    josephus_display(ring);
+
+    Person result[count];
     josephus_sort(ring, result);
 
     char str[20];
@@ -46,7 +49,6 @@ int main(){
     person_destroy(person, count);
     josephus_destroy(ring);
     reader_destroy(reader);
-    free(result);
 
     return 0;
 }

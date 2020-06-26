@@ -15,6 +15,7 @@ void josephus_del(Josephus);
 void josephus_add(Josephus, Person);
 void josephus_pop(Josephus, unsigned, Person*);
 int josephus_len(Josephus);
+void josephus_display(Josephus);
 void josephus_sort(Josephus, Person*);
 
 #endif 

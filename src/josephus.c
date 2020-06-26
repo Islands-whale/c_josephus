@@ -39,6 +39,17 @@ int josephus_len(Josephus this){
     return length;
 }
 
+void josephus_display(Josephus this){
+    char result[20];
+    array_person_it_t it;
+    for(array_person_it(it, this->people) 
+        ; !array_person_end_p(it)    
+        ; array_person_next(it)){  
+            person2str(*array_person_cref(it), result);  
+            printf("%s\n", result);
+    }
+}
+
 void josephus_sort(Josephus this, Person *target){
     int upbound = josephus_len(this);
     for (int i = 0; i < upbound; ++i){
