@@ -39,10 +39,10 @@ int josephus_len(Josephus this){
     return length;
 }
 
-void josephus_sort(Josephus this, Person **target){
+void josephus_sort(Josephus this, Person *target){
     int upbound = josephus_len(this);
     for (int i = 0; i < upbound; ++i){
         this->current_id = (this->current_id + this->step - 1) % josephus_len(this);
-        josephus_pop(this, this->current_id, &(*target)[i]);
+        josephus_pop(this, this->current_id, &target[i]);
     }
 }

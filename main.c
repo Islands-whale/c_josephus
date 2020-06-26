@@ -33,7 +33,7 @@ int main(){
     }
 
     Person *result = (Person*)malloc(count * sizeof(Person));
-    josephus_sort(ring, &result);
+    josephus_sort(ring, result);
 
     char str[20];
     printf("\nThe sequence after sorting is:\n");
