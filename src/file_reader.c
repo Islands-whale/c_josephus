@@ -4,7 +4,7 @@
 #include "file_reader.h"
 
 struct _Reader{
-    char *path;
+    char path[20];
     unsigned count;
 };
 
@@ -27,16 +27,10 @@ int reader_get_line_count(const char *path, unsigned *count){
 
 Reader reader_new(){
     Reader reader = (Reader)malloc(sizeof(struct _Reader)); 
-
-    reader->path = (char*)malloc(20 * sizeof(char));
-    if (reader->path == NULL)
-        return NULL;
-    
     return reader;
 }
 
 void reader_destroy(Reader this){
-    free(this->path);
     free(this);
 }
 

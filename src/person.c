@@ -4,7 +4,7 @@
 #include "person.h"
 
 struct _Person{
-    char *name;
+    char name[10];
     unsigned age;
 };
 
@@ -15,10 +15,6 @@ Person* person_new(unsigned count){
         person[i] = (Person)malloc(sizeof(struct _Person));
         if(person[i] == NULL)
             return NULL;
-
-        person[i]->name = (char*)malloc(10 * sizeof(char));
-        if(person[i]->name == NULL)
-            return NULL;
     }
     
     return person;
@@ -26,7 +22,6 @@ Person* person_new(unsigned count){
 
 void person_destroy(Person *this, unsigned count){    // TODO
     for (int i = 0; i < count; i++){
-        free(this[i]->name);
         free(this[i]);
     }
     free(this);
