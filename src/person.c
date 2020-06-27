@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 
 #include "person.h"
-#include "error.h"
 
 struct _Person{
     char name[10];
@@ -19,7 +19,7 @@ Person* person_new(unsigned count){                     // TODO
             return NULL;
     }
     
-    return person;
+    return person;                                      //TODO
 }
 
 void person_destroy(Person *this, unsigned count){    
@@ -29,7 +29,7 @@ void person_destroy(Person *this, unsigned count){
     free(this);
 }
 
-void person_init(Person this, char *target){
+int person_init(Person this, char *target){
     // char *info;                                       //TODO
     // info = strtok(target, ",");
     // strcpy(this->name, info);
@@ -41,7 +41,11 @@ void person_init(Person this, char *target){
     strcpy(this->name, info);
 
     sprintf(info, "%s", strtok(NULL, ","));
+    if (atoi(info) <= 0)
+        return EINVAL;
+
     this->age = atoi(info);
+    return SUCCESS;
 }
 
 void person2str(Person this, char *target){

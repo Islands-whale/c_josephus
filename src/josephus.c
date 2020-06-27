@@ -1,7 +1,11 @@
+#include <errno.h>
+
+#include "m-array.h"
+
 #include "josephus.h"
 #include "person.h"
-#include "error.h"
 
+#define PEOPLE_MAX 1000
 ARRAY_DEF(array_person, Person, M_POD_OPLIST)
 
 struct _Josephus{
@@ -21,17 +25,29 @@ void josephus_destroy(Josephus this){
     free(this);
 }
 
-void josephus_init(Josephus this, unsigned start, unsigned step){
+int josephus_init(Josephus this, unsigned start, unsigned step){
+    if (start <= 0 || step <= 0)          //TODO
+        return EINVAL;
+
     this->current_id = start -1;
     this->step = step;
+    return SUCCESS;
 }
 
-void josephus_add(Josephus this, Person target){
+int josephus_add(Josephus this, Person target){
+    if (josephus_len(this) >= PEOPLE_MAX)
+        return EBADE;
+    
     array_person_push_back(this->people, target); 
+    return SUCCESS;
 }
 
-void josephus_pop(Josephus this, unsigned pop_id, Person *target){
+int josephus_pop(Josephus this, unsigned pop_id, Person *target){
+    if (pop_id < 0 || pop_id > josephus_len(this) - 1)
+        return EBADE;
+    
     array_person_pop_at(target, this->people, pop_id);
+    return SUCCESS;
 }
 
 int josephus_len(Josephus this){
