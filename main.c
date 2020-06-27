@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+
+#include "src/error.h"
 #include "src/person.h"
 #include "src/josephus.h"
 #include "src/file_reader.h"

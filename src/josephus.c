@@ -1,5 +1,8 @@
 #include "josephus.h"
 #include "person.h"
+#include "error.h"
+
+ARRAY_DEF(array_person, Person, M_POD_OPLIST)
 
 struct _Josephus{
     unsigned current_id;
@@ -9,21 +12,18 @@ struct _Josephus{
 
 Josephus josephus_new(){
     Josephus ring = (Josephus)malloc(sizeof(struct _Josephus));
+    array_person_init(ring->people);
     return ring;
 }
 
 void josephus_destroy(Josephus this){
+    array_person_clear(this->people);
     free(this);
 }
 
 void josephus_init(Josephus this, unsigned start, unsigned step){
-    array_person_init(this->people);
     this->current_id = start -1;
     this->step = step;
-}
-
-void josephus_del(Josephus this){
-    array_person_clear(this->people);
 }
 
 void josephus_add(Josephus this, Person target){

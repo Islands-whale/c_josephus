@@ -1,14 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #include "person.h"
+#include "error.h"
 
 struct _Person{
     char name[10];
     unsigned age;
 };
 
-Person* person_new(unsigned count){
+Person* person_new(unsigned count){                     // TODO
     Person *person = (Person*)malloc(count * sizeof(Person));
 
     for (int i = 0; i < count; i++){
@@ -20,7 +22,7 @@ Person* person_new(unsigned count){
     return person;
 }
 
-void person_destroy(Person *this, unsigned count){    // TODO
+void person_destroy(Person *this, unsigned count){    
     for (int i = 0; i < count; i++){
         free(this[i]);
     }
@@ -31,11 +33,10 @@ void person_init(Person this, char *target){
     // char *info;                                       //TODO
     // info = strtok(target, ",");
     // strcpy(this->name, info);
-
     // info = strtok(NULL, ",");
     // this->age = atoi(info);
 
-    char info[10];                                       //TODO
+    char info[10];                                       
     sprintf(info, "%s", strtok(target, ","));
     strcpy(this->name, info);
 
