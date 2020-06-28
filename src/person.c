@@ -57,3 +57,11 @@ void person2str(Person this, char *target){
     itoa(this->age, str, 10);
     strcat(target, str);
 }
+
+char* person_get_name(Person this){
+    return this->name;
+}
+
+int person_get_age(Person this){
+    return this->age;
+}
